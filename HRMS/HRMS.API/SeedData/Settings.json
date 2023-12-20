@@ -1,0 +1,18 @@
+[
+    {
+        "Bonus": "50",
+        "Penality": "50",
+        "VacationDay1": "Friday",
+        "VacationDay2": "Saturday"
+
+    },
+    {
+        "Bonus": "100",
+        "Penality": "100",
+        "VacationDay1": "Saturday",
+        "VacationDay2": "Sunday"
+
+    }
+
+
+]

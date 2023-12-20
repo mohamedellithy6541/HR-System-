@@ -1,0 +1,35 @@
+<h2 class="alert alert-heading alert-info mt-4 mx-5 p-3 text-center">
+  Departments Page
+</h2>
+<section class="bg-light p-4 mx-5 my-2 border border-1">
+  <button
+    *ngIf="hasPermissions(['Department.Create'])"
+    class="btn btn-outline-primary form-control mb-3"
+    type="button"
+    routerLink="/departmentForm"
+  >
+    Add Department
+  </button>
+  <table *ngIf="hasPermissions(['Department.View'])" class="table table-primary table-striped table-hover mb-0">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let x of departments; let i = index">
+      <tr>
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ x.name }}</td>
+        <td>
+          <a
+          *ngIf="hasPermissions(['Department.Delete'])"
+          (click)="deleteDepartment(x.id)"
+            ><i class="bi bi-trash-fill text-danger fs-4"></i
+          ></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>

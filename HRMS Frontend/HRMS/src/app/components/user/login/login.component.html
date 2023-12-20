@@ -1,0 +1,32 @@
+
+
+<div class="container ">
+    <div class="row justify-content-center ">
+        <div class="col-6 justify-content-center m-5">
+
+            <form [formGroup]="loginForm" (submit)="login($event)">
+
+                <div *ngIf="message" class="alert alert-danger d-flex justify-content-center ">
+                    <p>{{ message }}</p>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" formControlName="UserName">
+                    <ng-container *ngIf="userName.hasError('required') && loginFormTouched">
+                      <span class="text-danger">Username is required</span>
+                    </ng-container>
+                </div>
+                <div class="mb-3">
+                    <label for="ePassword" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="Password" formControlName="Password">
+                    <ng-container *ngIf="password.hasError('required') && loginFormTouched">
+                      <span class="text-danger">Password is required</span>
+                    </ng-container>
+                </div>
+                <button type="submit" class="btn btn-success">Login</button>
+            </form>
+
+
+        </div>
+    </div>
+  </div>

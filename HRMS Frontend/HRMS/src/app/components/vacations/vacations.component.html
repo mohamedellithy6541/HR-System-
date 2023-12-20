@@ -1,0 +1,76 @@
+<div *ngIf="hasPermissions(['SeasonalVacations.Create'])" class="container my-4">
+  <h2>Create a New Seasonal Vacation</h2>
+  <form [formGroup]="vacationForm" (ngSubmit)="onSubmit()" class="my-3">
+    <div class="form-group">
+      <label for="name">Vacation Name</label>
+      <input type="text" id="name" formControlName="name" class="form-control col col-sm-6">
+      <ng-container *ngIf="name.invalid && (name.dirty || name.touched)">
+        <div class="text-danger" *ngIf="name.hasError('required')">Name is required.</div>
+      </ng-container>
+    </div>
+    <div class="form-group">
+      <label for="vacationDate">Vacation Date</label>
+      <input
+        type="date"
+        id="vacationDate"
+        formControlName="vacationDate"
+        class="form-control col col-sm-6"
+      >
+      <ng-container *ngIf="vacationDate.invalid && (vacationDate.dirty || vacationDate.touched)">
+        <div class="text-danger" *ngIf="name.hasError('required')">Vacation Date is required.</div>
+      </ng-container>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Vacation</button>
+  </form>
+</div>
+
+
+
+<!-- Seasonal Vacations Table -->
+<div *ngIf="hasPermissions(['SeasonalVacations.View'])" class="container my-4">
+  <h2>Seasonal Vacations</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Vacation Name</th>
+        <th>Vacation Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let vacation of seasonalVacations">
+        <td>{{ vacation.name }}</td>
+        <td>{{ vacation.vacationDate | date: 'shortDate' }}</td>
+        <td>
+          <!-- Edit Button -->
+          <button *ngIf="hasPermissions(['SeasonalVacations.Edit'])" (click)="editVacation(vacation)" class="btn btn-primary">Edit</button>
+
+          <!-- Delete Button -->
+          <button *ngIf="hasPermissions(['SeasonalVacations.Delete'])" (click)="deleteVacation(vacation)" class="btn btn-danger">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Edit Vacation Form -->
+<div *ngIf="selectedVacation" class="container my-4">
+  <h2>Edit Vacation</h2>
+  <form [formGroup]="editForm" class="my-3">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" formControlName="name" class="form-control col col-sm-6">
+      <ng-container *ngIf="nameEdited.invalid && (nameEdited.dirty || nameEdited.touched)">
+        <div class="text-danger" *ngIf="nameEdited.hasError('required')">Name is required.</div>
+      </ng-container>
+    </div>
+    <div class="form-group">
+      <label for="vacationDate">Vacation Date</label>
+      <input type="date" id="vacationDate" formControlName="vacationDate" class="form-control col col-sm-6">
+      <ng-container *ngIf="vacationDate.invalid && (vacationDate.dirty || vacationDate.touched)">
+        <div class="text-danger" *ngIf="name.hasError('required')">Vacation Date is required.</div>
+      </ng-container>
+    </div>
+    <button (click)="saveEditedVacation()" class="btn btn-primary">Save Changes</button>
+  </form>
+</div>

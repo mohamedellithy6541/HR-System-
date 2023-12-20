@@ -1,0 +1,64 @@
+<div class="form-bg">
+  <div class="container h-100">
+    <div class="row justify-content-center align-items-lg-center h-100">
+      <div class="col-md-offset-2 col-md-8">
+        <div class="form-container">
+          <div class="form-icon">
+            <i class="fa fa-user-circle"></i>
+            <span class="signup"
+              ><a href="">Don't have account? Signup</a></span
+            >
+          </div>
+
+          <form class="form-horizontal">
+            <h3 class="title">Member Login</h3>
+
+            <div class="mb-3">
+              <div class="form-group">
+                <span class="input-icon"
+                  ><i class="bi bi-person-circle"></i
+                ></span>
+                <input
+                  formControlName="username"
+                  class="form-control"
+                  type="text"
+                  placeholder="User Name"
+                />
+              </div>
+              <div
+                class="text-danger errors"
+                *ngIf="loginForm.controls['username'].touched"
+              >
+                username must be at least 5 characters
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <div class="form-group">
+                <span class="input-icon"><i class="bi bi-key-fill"></i></span>
+                <input
+                  formControlName="password"
+                  class="form-control"
+                  type="password"
+                  placeholder="Password"
+                />
+              </div>
+
+              <div
+                class="text-danger errors"
+                *ngIf="loginForm.controls['password'].touched"
+              >
+                password Length at least must be 10
+              </div>
+            </div>
+
+            <button class="btn signin">Login</button>
+            <span class="forgot-pass"
+              ><a href="#">Forgot Username/Password?</a></span
+            >
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

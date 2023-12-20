@@ -1,0 +1,58 @@
+[
+    {
+        "FirstName": "Ahmed",
+        "LastName": "Fouad",
+        "Address": "Alex",
+        "Phone": "0122252522",
+        "Gender": "M",
+        "BirthDate": "1997-05-02 00:00:26.8438810",
+        "Nationality": "Egy",
+        "NationalId": "22252652225",
+        "HireDate": "2022-05-02 21:44:26.8438810",
+        "Salary": "10000",
+        "ArrivalTime": "2000-01-01 09:00:00.00",
+        "LeaveTime": "2000-01-01 17:00:00.00",
+        "IsDeleted": true
+
+        //"DepartID": "1"
+    },
+    {
+        "FirstName": "Mohamed",
+        "LastName": "Ahmed",
+        "Address": "Cairo",
+        "Phone": "0122252522",
+        "Gender": "M",
+        "BirthDate": "1997-10-20 09:00:00.00",
+        "Nationality": "Egy",
+        "NationalId": "22252652225",
+        "HireDate": "2023-10-20 09:00:00.00",
+        "Salary": "10000",
+        "ArrivalTime": "2000-01-01 09:00:00.00",
+        "LeaveTime": "2000-01-01 17:00:00.00",
+        "IsDeleted": true
+
+        // "DepartID": "2"
+    },
+    {
+        "FirstName": "Menna",
+        "LastName": "Sherif",
+        "Address": "Alex",
+        "Phone": "0122252522",
+        "Gender": "F",
+        "BirthDate": "1997-10-20 09:00:00.00",
+        "Nationality": "Egy",
+        "NationalId": "22252652225",
+        "HireDate": "2023-10-20 09:00:00.00",
+        "Salary": "10000",
+        "ArrivalTime": "2000-01-01 09:00:00.00",
+        "LeaveTime": "2000-01-01 17:00:00.00",
+        "IsDeleted": true
+
+        // "DepartID": "3"
+    }
+
+
+
+
+
+]

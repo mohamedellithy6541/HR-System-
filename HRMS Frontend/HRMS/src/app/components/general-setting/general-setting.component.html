@@ -1,0 +1,145 @@
+<main class="container">
+  <h1 class="alert alert-heading alert-info mt-4 mx-5 p-3 text-center">
+    General Settings
+  </h1>
+  <section class="mt-5 row">
+    <form [formGroup]="generalDataForm" (submit)="formOperation($event)">
+      <!-- employee -->
+      <div class="container mt-5 mb-5">
+        <h2>Employees</h2>
+        <div class="row mt-3">
+          <label for="vacationDay2" class="col-2">Select Employee/s</label>
+          <div class="col-2">
+            <select
+              class="form-control"
+              name="employee"
+              id="employee"
+              formControlName="empID"
+              (change)="employeeSetting()"
+            >
+              <option value="0">All Employee</option>
+              <option *ngFor="let item of employees" value="{{ item.id }}">
+                {{ item.firstName }} {{ item.lastName }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <!-- Hours -->
+      <div class="container">
+        <h2>Bonus & Penalty Hours</h2>
+        <div class="row">
+          <label for="bonus" class="col-2">Select Bonus Hours</label>
+          <div class="col-3">
+            <input
+              type="number"
+              id="bonus"
+              name="bonus"
+              placeholder="Enter number of hours"
+              class="form-control"
+              formControlName="bonusControl"
+            />
+            <ng-container *ngIf="getBonus.touched">
+              <div class="text-danger" *ngIf="getBonus.hasError('required')">
+                Bonus is required!
+              </div>
+              <div class="text-danger" *ngIf="getBonus.hasError('min')">
+                Minimum value should be 1
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <label for="penalty" class="col-2">Select Discount Hours</label>
+          <div class="col-3">
+            <input
+              type="number"
+              id="penalty"
+              name="penalty"
+              placeholder="Enter number of hours"
+              class="form-control"
+              formControlName="discountControl"
+            />
+            <ng-container *ngIf="getDiscount.touched">
+              <div class="text-danger" *ngIf="getDiscount.hasError('required')">
+                Discount Value is required!
+              </div>
+              <div class="text-danger" *ngIf="getDiscount.hasError('min')">
+                Minimum value should be 1
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+      <!-- Holidays -->
+      <div class="container mt-5">
+        <h2 class="mt-5">Weekly Holidays</h2>
+        <div class="row mt-3">
+          <label for="vacationDay1" class="col-2">Day 1</label>
+          <div class="col-6">
+            <select
+              name="vacationDay1"
+              id="vacationDay1"
+              formControlName="vacationDay1Control"
+            >
+              <option value="null">Select Day 1</option>
+              <option *ngFor="let item of days" value="{{ item }}">
+                {{ item }}
+              </option>
+            </select>
+            <ng-container *ngIf="getVDay1.touched">
+              <div class="text-danger" *ngIf="getVDay1.value === 'null'">
+                Please Select Valid day ...
+              </div>
+              <div class="text-danger" *ngIf="getVDay1.hasError('notUnique')">
+                Can't Choose the Same Day , Pick Another Day
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <label for="vacationDay2" class="col-2">Day 2</label>
+          <div class="col-2">
+            <select
+              name="vacationDay2"
+              id="vacationDay2"
+              formControlName="vacationDay2Control"
+            >
+              <option value="null">Select Day 2</option>
+              <option *ngFor="let item of days" value="{{ item }}">
+                {{ item }}
+              </option>
+            </select>
+            <ng-container *ngIf="getVDay2.touched">
+              <div class="text-danger" *ngIf="getVDay2.value === 'null'">
+                Please Select Valid day ...
+              </div>
+              <div class="text-danger" *ngIf="getVDay2.hasError('notUnique')">
+                Can't Choose the Same Day , Pick Another Day
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="text-center mt-4">
+        <input
+          *ngIf="hasPermissions(['GeneralSettings.Create'])"
+          type="submit"
+          [value]="action ? 'Save' : 'Save As New Setting'"
+          (click)="setButtonClicked('save')"
+          class="btn btn-outline-primary me-4 h-25 w-25"
+        />
+        <input
+          type="submit"
+          value="Edit Current Setting Data"
+          (click)="setButtonClicked('edit')"
+          class="btn btn-outline-primary ms-4 h-25 w-25"
+          *ngIf="!action && hasPermissions(['GeneralSettings.Edit'])"
+        />
+      </div>
+    </form>
+  </section>
+</main>

@@ -1,0 +1,300 @@
+<form [formGroup]="empval" class="container mt-5" (ngSubmit)="onsubmitform()">
+  <div class="form-group">
+    <label for="department" class="form-label"> Department</label>
+    <select
+      id="department"
+      formControlName="departID"
+      class="form-select"
+      name="departID"
+    >
+      <option selected disabled>--Select Department--</option>
+      <option *ngFor="let x of allDepartments" value="{{ x.id }}">
+        {{ x.name }}
+      </option>
+    </select>
+  </div>
+  <div>
+    <small
+      class="text-danger"
+      *ngIf="
+        empval.get('departID')?.hasError('required') &&
+        (empval.get('departID')?.touched || submitted)
+      "
+      >you must select department
+    </small>
+  </div>
+  <!-- First Name -->
+  <div class="form-group mb-3">
+    <label for="firstName">First Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="firstName"
+      formControlName="firstName"
+    />
+    <div
+      *ngIf="
+        empval.get('firstName')?.hasError('required') &&
+        (empval.get('firstName')?.touched || submitted)
+      "
+      class="text-danger"
+    >
+      First Name is required.
+    </div>
+  </div>
+
+  <!-- Last Name -->
+  <div class="form-group mb-3">
+    <label for="lastName">Last Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="lastName"
+      formControlName="lastName"
+    />
+    <div
+      *ngIf="
+        empval.get('lastName')?.hasError('required') &&
+        (empval.get('lastName')?.touched || submitted)
+      "
+      class="text-danger"
+    >
+      Last Name is required.
+    </div>
+  </div>
+
+  <!-- Address -->
+  <div class="form-group mb-3">
+    <label for="address">Address</label>
+    <input
+      type="text"
+      class="form-control"
+      id="address"
+      formControlName="address"
+    />
+    <div
+      *ngIf="
+        empval.get('address')?.hasError('required') &&
+        (empval.get('address')?.touched || submitted)
+      "
+      class="text-danger"
+    >
+      Address is required.
+    </div>
+  </div>
+
+  <!-- Phone -->
+  <div class="form-group mb-3">
+    <label for="phone">Phone</label>
+    <input
+      type="text"
+      class="form-control"
+      id="phone"
+      maxlength="11"
+      formControlName="phone"
+    />
+    <div
+      *ngIf="
+        empval.get('phone')?.hasError('required') &&
+        (empval.get('phone')?.touched || submitted)
+      "
+      class="text-danger"
+    >
+      Phone is required.
+    </div>
+    <div *ngIf="empval.get('phone')?.hasError('pattern')" class="text-danger">
+      Phone number must have at least 11 digits.
+    </div>
+    <div
+      *ngIf="
+        empval.get('phone')?.hasError('maxlength') &&
+        (empval.get('phone')?.touched || submitted)
+      "
+      class="text-danger"
+    >
+      Phone number cannot exceed 11 digits.
+    </div>
+  </div>
+
+  <!-- Gender -->
+  <div class="form-group mb-3">
+    <label for="gender">Gender</label>
+    <input
+      type="text"
+      class="form-control"
+      id="gender"
+      formControlName="gender"
+    />
+    <div
+      *ngIf="
+        empval.get('gender')?.hasError('required') &&
+        (empval.get('gender')?.touched || submitted)
+      "
+      class="text-danger"
+    >
+      Gender is required.
+    </div>
+  </div>
+
+  <!-- Nationality -->
+  <div class="form-group mb-3">
+    <label for="nationality">Nationality</label>
+    <input
+      type="text"
+      class="form-control"
+      id="nationality"
+      formControlName="nationality"
+    />
+    <div
+      *ngIf="
+        empval.get('nationality')?.hasError('required') &&
+        (empval.get('nationality')?.touched || submitted)
+      "
+      class="text-danger"
+    >
+      Nationality is required.
+    </div>
+  </div>
+
+  <!-- National ID -->
+  <div class="form-group mb-3">
+    <label for="nationalId">National ID</label>
+    <input
+      type="text"
+      class="form-control"
+      id="nationalId"
+      formControlName="nationalId"
+      maxlength="14"
+    />
+    <div
+      *ngIf="empval.get('nationalId')?.hasError('pattern')"
+      class="text-danger"
+    >
+      National ID must be greater than 14 digits
+    </div>
+    <div
+      *ngIf="
+        empval.get('nationalId')?.hasError('required') &&
+        (empval.get('nationalId')?.touched || submitted)
+      "
+      class="text-danger"
+    >
+      National ID is required.
+    </div>
+  </div>
+
+  <!-- Salary -->
+  <div class="form-group mb-3">
+    <label for="salary">Salary</label>
+    <input
+      type="number"
+      class="form-control"
+      id="salary"
+      formControlName="salary"
+    />
+    <div
+      *ngIf="
+        empval.get('salary')?.hasError('required') &&
+        (empval.get('salary')?.touched || submitted)
+      "
+      class="text-danger"
+    >
+      Salary is required.
+    </div>
+  </div>
+
+  <!-- Birth Date -->
+  <div class="form-group mb-3">
+    <label for="birthDate">Birth Date</label>
+    <input
+      type="date"
+      class="form-control"
+      id="birthDate"
+      formControlName="birthDate"
+    />
+    <div *ngIf="empval.get('birthDate')?.hasError('Age')" class="text-danger">
+      Employee must have at least 20 years
+    </div>
+    <div
+      *ngIf="
+        empval.get('birthDate')?.hasError('required') &&
+        (empval.get('birthDate')?.touched || submitted)
+      "
+      class="text-danger"
+    >
+      Birth Date is required.
+    </div>
+  </div>
+
+  <!-- Hire Date -->
+  <div class="form-group mb-3">
+    <label for="hireDate">Hire Date</label>
+    <input
+      type="date"
+      class="form-control"
+      id="hireDate"
+      formControlName="hireDate"
+    />
+    <div
+      *ngIf="empval.get('hireDate')?.hasError('hireDate')"
+      class="text-danger"
+    >
+      you can't enter date earlier than Company Date start up
+    </div>
+    <div
+      *ngIf="
+        empval.get('hireDate')?.hasError('required') &&
+        (empval.get('hireDate')?.touched || submitted)
+      "
+      class="text-danger"
+    >
+      Hire Date is required.
+    </div>
+  </div>
+
+  <!-- Arrival Time -->
+  <div class="form-group mb-3">
+    <label for="arrivalTime">Arrival Time</label>
+    <input
+      type="time"
+      class="form-control"
+      id="arrivalTime"
+      formControlName="arrivalTime"
+    />
+    <div
+      *ngIf="
+        empval.get('arrivalTime')?.hasError('required') &&
+        (empval.get('arrivalTime')?.touched || submitted)
+      "
+      class="text-danger"
+    >
+      Arrival Time is required.
+    </div>
+  </div>
+
+  <!-- Leave Time -->
+  <div class="form-group mb-3">
+    <label for="leaveTime">Leave Time</label>
+    <input
+      type="time"
+      class="form-control"
+      id="leaveTime"
+      formControlName="leaveTime"
+    />
+    <div
+      *ngIf="
+        empval.get('leaveTime')?.hasError('required') &&
+        (empval.get('leaveTime')?.touched || submitted)
+      "
+      class="text-danger"
+    >
+      Leave Time is required.
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+
+  <a routerLink="/employee" type="button" class="btn btn-outline-warning m-4">
+    back to list
+  </a>
+</form>

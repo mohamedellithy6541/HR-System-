@@ -1,0 +1,57 @@
+<div class="container my-4">
+  <h2>Create a New Role</h2>
+  <form>
+    <div class="form-group">
+      <label for="roleName">Role Name</label>
+      <input
+        name="roleName"
+        type="text"
+        id="roleName"
+        [(ngModel)]="roleName"
+        class="form-control"
+      />
+    </div>
+    <button (click)="createRole()" class="btn btn-primary">Create Role</button>
+  </form>
+</div>
+
+<div class="container my-4">
+  <h2>Assign Permissions</h2>
+  <table class="table table-primary table-striped table-hover">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Page Name</th>
+        <th>Permissions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let page of pages; let i = index">
+        <th>{{ i + 1 }}</th>
+
+        <td>{{ page.name }}</td>
+        <td>
+          <div class="d-inline">
+            <input type="checkbox" [(ngModel)]="page.permissions[0].add" />
+            <label class="ms-1 me-4 form-label">Add </label>
+          </div>
+
+          <div class="d-inline">
+            <input type="checkbox" [(ngModel)]="page.permissions[1].edit" />
+            <label class="ms-1 me-4 form-label my-0">Edit</label>
+          </div>
+
+          <div class="d-inline">
+            <input type="checkbox" [(ngModel)]="page.permissions[2].delete" />
+            <label class="ms-1 me-4 form-label">Delete</label>
+          </div>
+
+          <div class="d-inline">
+            <input type="checkbox" [(ngModel)]="page.permissions[3].view" />
+            <label class="ms-1 me-4 form-label">View</label>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

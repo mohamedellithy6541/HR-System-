@@ -1,0 +1,15 @@
+obj/
+Migrations/
+bin/
+.vs/
+HRMS/HRMS.Domain/obj/
+HRMS/HRMS.Domain/bin/
+HRMS/HRMS.Application/obj/
+HRMS/HRMS.Application/bin/
+HRMS/HRMS.Application/Migrations/
+HRMS/HRMS.Application/HRMS.Application.csproj
+HRMS/HRMS.API/obj/
+HRMS/HRMS.API/bin/
+HRMS/HRMS.API/HRMS.API.csproj.user
+HRMS/.vs/HRMS/v17/.suo
+HRMS/.vs/HRMS/DesignTimeBuild/.dtbcache.v2

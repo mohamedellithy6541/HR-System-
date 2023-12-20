@@ -1,0 +1,39 @@
+<div class="bg-light m-5 p-3 border-2 border">
+  <form
+    [formGroup]="departmentForm"
+    (submit)="submitForm($event)"
+    class="form-group"
+  >
+    <div class="form-group mb-3">
+      <label for="name" class="mb-2 fs-6 text-dark-emphasis"
+        >Department Name</label
+      >
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        formControlName="name"
+        autocomplete="off"
+      />
+      <div
+        *ngIf="
+          departmentForm.get('name')?.hasError('required') &&
+          departmentForm.get('name')?.touched
+        "
+        class="text-danger"
+      >
+        Name is required.
+      </div>
+    </div>
+    <button type="submit" class="btn btn-outline-primary offset-3 col-2">
+      Submit
+    </button>
+    <button
+      class="btn btn-outline-warning offset-2 col-2"
+      type="button"
+      routerLink="/department"
+    >
+      Back To Departments
+    </button>
+  </form>
+</div>

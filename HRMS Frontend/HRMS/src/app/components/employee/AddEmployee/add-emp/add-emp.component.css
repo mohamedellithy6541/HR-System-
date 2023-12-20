@@ -1,0 +1,10 @@
+/* Add padding to buttons */
+.btn {
+    padding: 8px 16px; /* Adjust padding as needed */
+  }
+  
+  /* Add hover effect */
+  .btn:hover {
+    opacity: 0.8; /* Adjust opacity for hover effect */
+  }
+  

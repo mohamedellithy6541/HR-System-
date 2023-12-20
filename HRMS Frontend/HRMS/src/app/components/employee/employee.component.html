@@ -1,0 +1,55 @@
+<div class="container">
+  <h2 class="p-4 alert alert-light mt-4 text-center text-dark">Employees</h2>
+
+  <button
+    *ngIf="hasPermissions(['Employee.Create'])"
+    routerLink="/employee/0"
+    type="button"
+    class="btn btn-outline-primary p-2 my-2 form-control"
+  >
+    Add Employee
+  </button>
+
+  <table class="table table-primary table-striped table-hover p-4">
+    <thead>
+      <tr class="text-primary">
+        <th scope="col">#</th>
+        <th scope="col">FirstName</th>
+        <th scope="col">lastName</th>
+        <th scope="col">Address</th>
+        <th scope="col">SALARY</th>
+        <th scope="col">NationalId</th>
+        <th scope="col">phone</th>
+        <th scope="col">Birthdate</th>
+        <th scope="col">hireDate</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let emp of employees; let i = index">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ emp.firstName }}</td>
+        <td>{{ emp.lastName }}</td>
+        <td>{{ emp.address }}</td>
+        <td>{{ emp.salary }}</td>
+        <td>{{ emp.nationalId }}</td>
+        <td>{{ emp.phone }}</td>
+        <td>{{ emp.birthDate | date : "yyyy-MM-dd" }}</td>
+        <td>{{ emp.hireDate | date : "yyyy-MM-dd" }}</td>
+        <td>
+          <i
+            *ngIf="hasPermissions(['Employee.Edit'])"
+            (click)="editEmployee(emp.id)"
+            class="bi bi-pencil-fill text-warning"
+          >
+          </i>
+          <i
+            *ngIf="hasPermissions(['Employee.Delete'])"
+            (click)="deleteEmployee(emp.id)"
+            class="bi bi-trash-fill text-danger p-2"
+          ></i>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

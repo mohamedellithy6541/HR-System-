@@ -1,0 +1,55 @@
+<div class="container ">
+    <div class="row justify-content-center ">
+        <div class="col-6 justify-content-center m-5 ">
+            <form [formGroup]="registerForm" (submit)="register($event)">
+                <div *ngIf="errors" class="alert alert-danger d-flex justify-content-center ">
+                    <p>{{ errors }}</p>
+                </div>
+
+                <div *ngIf="success" class="alert alert-success d-flex justify-content-center ">
+                  <p>{{ success }}</p>
+                </div>
+
+                <div class="mb-3">
+                    <label for="FullName" class="form-label">FullName</label>
+                    <input type="text" class="form-control" id="FullName" formControlName="FullName">
+                    <ng-container *ngIf="registerFormTouched">
+                      <span *ngIf="fullNameInput.hasError('required')" class="text-danger">Fullname is required</span>
+                      <span *ngIf="fullNameInput.hasError('minlength')" class="text-danger">Fullname length too short</span>
+                    </ng-container>
+                </div>
+                <div class="mb-3">
+                    <label for="Username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="Username" formControlName="UserName">
+                    <ng-container *ngIf="registerFormTouched">
+                      <span *ngIf="userNameInput.hasError('required')" class="text-danger">Username is required</span>
+                      <span *ngIf="userNameInput.hasError('minlength')" class="text-danger">Username length too short</span>
+                    </ng-container>
+                </div>
+                <div class="mb-3">
+                    <label for="Email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="Email" formControlName="Email">
+                    <ng-container *ngIf="registerFormTouched">
+                      <span *ngIf="emailInput.hasError('required')" class="text-danger">Email is required</span>
+                      <span *ngIf="emailInput.hasError('email')" class="text-danger">Email is not valid</span>
+                    </ng-container>
+                </div>
+                <div class="mb-3">
+                    <label for="Password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="Password" formControlName="Password">
+                    <ng-container *ngIf="passwordInput.hasError('required') && registerFormTouched">
+                      <span class="text-danger">Password is required</span>
+                    </ng-container>
+                </div>
+                <select formControlName="Role" class="form-select">
+                    <option value="" selected>--Select Role--</option>
+                    <option *ngFor="let role of roles" value="{{ role?.name }}">{{ role?.name }}</option>
+                </select>
+                <ng-container *ngIf="registerFormTouched">
+                  <span *ngIf="rolenput.hasError('required')" class="text-danger mb-2">Role is required</span>
+                </ng-container>
+                <button type="submit" class="btn btn-success d-block mt-3">Register</button>
+            </form>
+        </div>
+    </div>
+</div>

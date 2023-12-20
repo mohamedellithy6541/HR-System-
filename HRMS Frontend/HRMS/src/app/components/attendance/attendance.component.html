@@ -1,0 +1,240 @@
+<main class="container">
+  <h2 class="text-center py-3 mt-3 alert alert-light mx-0">
+    Report of Attendance
+  </h2>
+  <section class="row alert alert-light p-4 mb-0">
+    <form [formGroup]="SearchForm" (submit)="getDataSubmit($event)">
+      <section class="col-lg-8 col-sm-10 offset-sm-1 offset-md-2">
+        <input
+          class="form-control px-4 py-2"
+          type="text"
+          placeholder="search by employee or department name"
+          formControlName="name"
+        />
+      </section>
+      <section class="row my-3">
+        <section class="col-md-4 offset-md-2 col-sm-12 ps-2">
+          <label for="dateF" class="form-label col-md-3 col-sm-3">From :</label>
+          <input
+            type="date"
+            class="form-control col-md-9 col-sm-9 rounded-2 py-2 border-1 border-primary"
+            id="dateF"
+            formControlName="dateF"
+          />
+        </section>
+        <section class="col-md-4 pe-2">
+          <section>
+            <label for="dateT" class="form-label col-md-3 col-sm-12"
+              >To :</label
+            >
+            <input
+              type="date"
+              class="form-control col-md-9 col-sm-10 rounded-2 px-2 py-2 border-1 border-primary"
+              id="dateT"
+              formControlName="dateT"
+            />
+          </section>
+        </section>
+        <section class="offset-md-2">
+          <small
+            [hidden]="FormValidationState"
+            *ngIf="SearchForm?.errors?.['checkDate']"
+            class="fs-6 text-danger alert-warning"
+            >(To date) can't be previous than (From Date)</small
+          >
+        </section>
+        <section class="offset-md-2">
+          <small
+            [hidden]="FormValidationState"
+            *ngIf="SearchForm?.errors?.['EmptyForm'] && SearchForm?.touched"
+            class="fs-6 text-danger alert-warning"
+            >Form Can't be Empty</small
+          >
+        </section>
+        <section class="offset-md-2">
+          <small
+            [hidden]="!FormValidationState"
+            class="fs-6 text-danger alert-warning"
+            >Enter Valid Data to Form</small
+          >
+        </section>
+      </section>
+      <section class="offset-md-2 col-lg-2">
+        <button type="submit" class="btn btn-outline-primary px-md-5">
+          Search
+        </button>
+      </section>
+    </form>
+    <section id="addAttendance" class="offset-md-8 text-end col-lg-2 p-2">
+      <button
+        (click)="addAttendance()"
+        data-bs-toggle="modal"
+        data-bs-target="#AttendanceForm"
+        class="btn btn-outline-primary"
+      >
+        Add Attendance
+      </button>
+    </section>
+  </section>
+  <section class="m-md-3 row">
+    <table class="table table-primary table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Department</th>
+          <th scope="col">Employee</th>
+          <th scope="col">Arrival Time</th>
+          <th scope="col">Departure Time</th>
+          <th scope="col">Attendance Date</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let x of DataModel; let i = index">
+        <tr>
+          <th scope="row">{{ PageNumber * 10 + i + 1 }}</th>
+          <td>{{ x.dept_Name }}</td>
+          <td>{{ x.emp_Name }}</td>
+          <td>{{ x.arrivalTime | date : "shortTime" }}</td>
+          <td>{{ x.departureTime | date : "shortTime" }}</td>
+          <td>{{ x.attendanceDate | date }}</td>
+          <td>
+            <i
+              (click)="deleteAttendance(x.id)"
+              class="fs-5 bi bi-calendar-x-fill me-3 text-danger"
+            ></i>
+            <i
+              data-bs-toggle="modal"
+              data-bs-target="#AttendanceForm"
+              (click)="editAttendance(x)"
+              class="fs-5 bi bi-pencil-square text-warning"
+            ></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-end">
+        <li class="page-item">
+          <button
+            class="btn btn-outline-primary"
+            (click)="getOtherPage(-1)"
+            [disabled]="PageNumber == 0"
+          >
+            Previous
+          </button>
+        </li>
+
+        <li class="ms-2 page-item">
+          <button
+            class="btn btn-outline-primary"
+            (click)="getOtherPage(1)"
+            [disabled]="!next"
+          >
+            Next
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </section>
+  <div
+    class="modal fade"
+    id="AttendanceForm"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="AttendanceForm"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title display-2" id="AttendanceForm">
+            {{
+              AttendanceModel.emp_Name === ""
+                ? "Add Attendance"
+                : "Edit Attendance"
+            }}
+          </h3>
+          <button
+            type="button"
+            class="btn btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form
+            [formGroup]="attendanceForm"
+            (submit)="attendanceModelFormFunction($event)"
+          >
+            <select formControlName="empID" class="form-control">
+              <option *ngFor="let x of AllEmployees" value="{{ x.id }}">
+                {{ x.firstName + " " + x.lastName }}
+              </option>
+            </select>
+            <small
+              class="text-danger"
+              *ngIf="
+                attendanceForm.get('empID')?.hasError('required') &&
+                attendanceForm.get('empID')?.touched
+              "
+              >you must select Employee
+            </small>
+            <input
+              type="time"
+              class="form-control"
+              formControlName="arrivalTime"
+            />
+            <small
+              class="text-danger"
+              *ngIf="
+                attendanceForm.get('arrivalTime')?.hasError('required') &&
+                attendanceForm.get('arrivalTime')?.touched
+              "
+              >arrival time is required</small
+            >
+            <input
+              type="time"
+              class="form-control"
+              formControlName="departureTime"
+            />
+            <small
+              class="text-danger"
+              *ngIf="
+                attendanceForm.get('departureTime')?.hasError('required') &&
+                attendanceForm.get('departureTime')?.touched
+              "
+              >departure time is required</small
+            >
+            <input
+              type="date"
+              class="form-control"
+              formControlName="attendanceDate"
+            />
+            <small
+              class="text-danger"
+              *ngIf="
+                attendanceForm.get('attendanceDate')?.hasError('required') &&
+                attendanceForm.get('attendanceDate')?.touched
+              "
+              >attendance date is required</small
+            >
+            <input
+              type="submit"
+              class="btn btn-primary form-control"
+              data-bs-dismiss="modal"
+            />
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
